@@ -4,6 +4,7 @@ from django.db import models
 
 class Author(models.Model):
    name        = models.CharField('Name', max_length=100)
+   photo       = models.ImageField(upload_to='uploads/authors/photo/%Y/%m/%d/', max_length=255, blank=True, null=True)
    country     = models.CharField('Country', max_length=50, null=True)
    birth_date  = models.DateField('Birth date', null=True, blank=True)
    death_date  = models.DateField('Death date', null=True, blank=True)
@@ -21,6 +22,7 @@ class Category(models.Model):
 
 class Book(models.Model):
    name        = models.CharField('Name', max_length=150, null=False, blank=False)
+   cover       = models.ImageField(upload_to='uploads/books/cover/%Y/%m/%d/', max_length=255, blank=True, null=True)
    language    = models.CharField('Language', max_length=50, blank=True, null=True)
    pages       = models.IntegerField('Pages')
    descreption = models.TextField('Descreption', null=True, blank=True)
