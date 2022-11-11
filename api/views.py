@@ -53,9 +53,9 @@ def book_by_author(request, pk):
 @api_view(('GET',))
 def search_book_author(request, query):
    if request.method == 'GET':
-      books       = Book.objects.filter(name__contains=query)
-      authors     = Author.objects.filter(name__contains=query)
-      serializer  = BookCustomSerializer(books, many=True)
+      books       = Book.objects.filter(author__name__contains=query) | Book.objects.filter(name__contains=query)
+      print(books)
+      serializer  = BookSerializer(books, many=True)
       return Response(serializer.data, status=status.HTTP_200_OK)
    return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
 # ------------------ Books Views ------------------
