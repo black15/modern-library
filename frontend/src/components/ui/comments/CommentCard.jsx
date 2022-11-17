@@ -30,7 +30,7 @@ const CommentCard = ({comment, filterMan}) => {
           <div className='flex flex-col space-y-2'>
             <h1 className="max-w-md text-lg text-gray-800 font-medium font-sans capitalize">
               {
-                comment.username === auth.user.username 
+                auth.user && comment.username === auth.user.username 
                   ? 'أنت'
                   : comment.username
               } 
