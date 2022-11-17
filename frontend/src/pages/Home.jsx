@@ -1,17 +1,25 @@
 import axios from 'axios';
 import React, {useState, useEffect} from 'react'
+import { useContext } from 'react';
 import { useSearchParams } from "react-router-dom";
-import BookCard from '../components/ui/BookCard';
+import BookCard from '../components/ui/books/BookCard';
+// import Context from '../context/SearchContext';
+import AuthContext from '../context/AuthContext';
 
 function Home() {
+
+  // const searchCtx = useContext(Context);
+  const auth    = useContext(AuthContext)
+
   const [books, setBooks]           = useState([]);
   const [search, setSearch]         = useState();
-  // const [authors, setAuthors] = useState([]);
   const [loading, setLoading] = useState(true);
   // eslint-disable-next-line
+  const [erros, setErrors] = useState([]);
+  // eslint-disable-next-line
   let [searchParams, setSearchParams] = useSearchParams();
-
   let query = searchParams.get("search");
+
 
   useEffect( () => {
     if (query) {
@@ -28,7 +36,8 @@ function Home() {
           }
         })
         .catch(err => {
-          console.log(err);
+          setErrors(err)
+          setLoading(false)
         })
     }
 
@@ -40,10 +49,10 @@ function Home() {
         setLoading(false)
       })
       .catch(err => {
-        console.log(err);
+          setErrors(err)
       })
     }
-  }, [query])
+  }, [query, auth])
 
   if (loading) {
     return (

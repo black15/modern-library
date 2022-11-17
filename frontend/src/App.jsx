@@ -1,4 +1,3 @@
-import './index.css';
 import React from 'react';
 import Header from './components/Header';
 import {
@@ -6,26 +5,41 @@ import {
   Route,
 } from 'react-router-dom';
 
-import Categories from './pages/Categories';
+import { AuthContextProvider } from './context/AuthContext';
 import Home from './pages/Home';
+import Categories from './pages/Categories';
+import Login from './pages/Login';
+import Register from './pages/Register';
 import BookDetails from './pages/BookDetails';
 import AuthorDetails from './pages/AuthorDetails';
+import PrivateRoute from './utils/PrivateRoute';
 
 function App() {
 
   return (
     <div className="App">
-      <Header />
-      <Routes>
-        <Route path="/"             element={<Home />} />
-        <Route path="/categories"   element={<Categories />} />
-        <Route path="/authors"      element={<Categories />} />
-        <Route path="/store"        element={<Categories />} />
-        <Route path="/favorites"    element={<Categories />} />
-        <Route path='/book/:bookId' element={<BookDetails />} />
-        <Route path='/author/:authorName-:authorId' element={<AuthorDetails />} />
-
-      </Routes>
+      <AuthContextProvider>
+        <Header />
+        <Routes>
+          <Route path="/"             element={<Home />} />
+          <Route path="/login"        element={<Login />} />
+          <Route path="/register"     element={<Register />} />
+          <Route path="/categories"   element={<Categories />} />
+          <Route path="/authors"      element={<Categories />} />
+          <Route path='/book/:bookId' element={<BookDetails />} />
+          <Route path='/author/:authorName-:authorId' element={<AuthorDetails />} />
+          <Route path="/store"    element={
+            <PrivateRoute>
+              <Categories />
+            </PrivateRoute>
+            } />
+          <Route path="/favorites"    element={
+            <PrivateRoute>
+              <Categories />
+            </PrivateRoute>
+            } />
+        </Routes>
+      </AuthContextProvider>
     </div>
   );
   

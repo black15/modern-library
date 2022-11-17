@@ -1,10 +1,32 @@
+from django.http.response import JsonResponse
+from django.contrib.auth import get_user_model
+from django.views.decorators.csrf import csrf_exempt
+
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, renderer_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from django.http.response import JsonResponse
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 from .serializers import *
+
+user = get_user_model()
+
+# ------------------ Token & Refresh Views ------------------
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+
+        # Add custom claims
+        token['username'] = user.username
+        # ...
+
+        return token
+        
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
 
 
 # ------------------ Authors Views ------------------
@@ -114,7 +136,7 @@ def category_details(request, pk):
    try:
       category      =  Category.objects.get(pk=pk)
    except Category.DoesNotExist:
-      return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
+      return Response({'message': False}, status=status.HTTP_404_NOT_FOUND)
       
    if request.method == 'GET':
       serializer  = CategorySerializer(category)
@@ -127,4 +149,38 @@ def category_details(request, pk):
       return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
    if request.method == 'DELETE':
       category.delete()
+      return Response({'message': True}, status=status.HTTP_204_NO_CONTENT)
+
+# ------------------ Comments ------------------
+@api_view(('GET',))
+def book_comments(request, book_id):
+   if request.method == 'GET':
+      comments     = Comment.objects.filter(book=book_id)
+      serializer   = CommentSerializer(comments, many=True)
+      return Response(serializer.data, status=status.HTTP_200_OK)
+
+@api_view(('POST',))
+def add_comment(request, book_id):
+   if request.method == 'POST':
+      serializer     = CommentSerializer(data=request.data)
+      if serializer.is_valid():
+         serializer.save()
+         return Response(serializer.data, status=status.HTTP_201_CREATED)
+      return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(('PUT', 'DELETE',))
+def comment_option(request, pk):
+   try:
+      comment      =  Comment.objects.get(pk=pk)
+   except Category.DoesNotExist:
+      return Response({'message': False}, status=status.HTTP_404_NOT_FOUND)
+
+   if request.method == 'PUT':
+      serializer  = CommentSerializer(comment, data=request.data)
+      if serializer.is_valid():
+         serializer.save()
+         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+      return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
+   if request.method == 'DELETE':
+      comment.delete()
       return Response({'message': True}, status=status.HTTP_204_NO_CONTENT)

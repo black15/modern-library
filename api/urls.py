@@ -1,4 +1,8 @@
 from django.urls import path
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 from .views import *
 
 urlpatterns = [
@@ -13,4 +17,11 @@ urlpatterns = [
    path("categories/<int:pk>", category_details, name="category_details"),
 
    path("search/<str:query>", search_book_author, name="search"),
+
+   path("comments/<int:book_id>", book_comments, name="comments"),
+   path("comment/<int:book_id>", add_comment, name="add_comment"),
+   path("comment/opt/<int:pk>", comment_option, name="comment_option"),
+   
+   path("token/", MyTokenObtainPairView.as_view(), name="obtain_token"),
+   path("token/refresh/", TokenRefreshView.as_view(), name="refresh_token"),
 ]

@@ -1,18 +1,20 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import {Link, useParams} from 'react-router-dom';
-import { IoAddOutline } from 'react-icons/io5';
+import AuthContext from '../context/AuthContext';
+import CommentForm from '../components/ui/comments/CommentForm';
+import CommentCard from '../components/ui/comments/CommentCard';
 
 function BookDetails() {
-  // eslint-disable-next-line
+  
   const {bookId} = useParams();
+  const auth = useContext(AuthContext)
   const [book, setBook] = useState({});
   const [comments, setComments] = useState([]);
-
+  
   useEffect(() => {
     axios.get(`http://127.0.0.1:8000/api/v1/books/${bookId}`)
       .then(res => {
-        console.log(res);
         setBook(res.data)
       })
       .catch(err => {
@@ -26,6 +28,14 @@ function BookDetails() {
         console.log(err);
       })
   },[bookId])
+
+  const handleState = (comment) => {
+    setComments([...comments, comment])
+  }
+  const handleDelete = (comment) => {
+    setComments(comments.filter(item => item.id !== comment.id))
+  }
+
 
   return (
     <div>
@@ -67,6 +77,7 @@ function BookDetails() {
             </div>
           </div>
         </div>
+
         {/* Read and Download */}
         <div className="flex flex-row justify-center p-2 px-6 font-noto">
           <div>
@@ -77,31 +88,31 @@ function BookDetails() {
           </div>
         </div>
         {/* Comments Section */}
-        <div className="flex flex-col space-y-6 font-medium mx-auto w-[1100px]">
+        <div className="flex flex-col space-y-6 font-medium xl:w-[1100px] mx-auto">
+          {
+            comments.length === 0 &&
+            <React.Fragment>
+              <h1 className="max-w-md text-2xl">لا يوجد اي تقييمات حاليا</h1>
+            </React.Fragment>
+          }
+          {auth.user 
+            ? 
+              <CommentForm book_id={bookId} user={auth.user} reRender={handleState} />
+            : 
+              <p className="max-w-xl text-gray-700">
+                لاضافة تقييم يجب عليك <Link to={"/login"} className='font-medium text-cyan-800 underline'> تسجيل الدخول</Link>
+              </p>
+          }
           {comments.length > 0 ? 
           <React.Fragment>
             <h1 className="max-w-md text-2xl">التعليقات و التقييمات</h1>
             <div className="flex flex-col space-y-4">
               {/* Comment Section */}
               {comments.map(comment => (
-                <div id="comment" className="flex flex-row shadow-lg rounded-lg p-6 drop-shadow px-6 bg-slate-50">
-                  <div>
-                    <img className='rounded-full ml-6 shadow' src={`https://www.kotobati.com/themes/custom/ktobati/assets/images/avatar.svg`} width={70} alt='Author'/>
-                  </div>
-                  <div>
-                    <h1 className="max-w-md text-lg text-gray-800 font-medium">{comment.name}</h1>
-                    <p className="max-w-6xl mt-4 text-sm text-gray-700">{comment.body}</p>
-                  </div>
-                </div>
+                <CommentCard key={comment.id} comment={comment} filterMan={handleDelete} />
               ))}
             </div>
-          </React.Fragment> : 
-          <React.Fragment>
-            <h1 className="max-w-md text-2xl">لا يوجد اي تقييمات حاليا</h1>
-            <div>
-              <a href="d" className="flex flex-row items-center justify-center w-[140px] max-w-xl text-md text-white p-2 rounded bg-green-700"><IoAddOutline className='ml-1'/> اضافة تقييم</a>
-            </div>
-          </React.Fragment>}
+          </React.Fragment> : null}
         </div>
       </div>
     </div>

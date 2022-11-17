@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.App {
+  direction: rtl;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+nav {
+  direction: ltr;
+}
+nav form {
+  direction: ltr;
+}
