@@ -52,7 +52,7 @@ function BookDetails() {
             <div className="flex flex-col space-y-6 mt-6">
               <h1 className="max-w-md text-gray-900 text-2xl font-medium font-noto">{book.name}</h1>
               <h3 className="max-w-md text-cyan-700"><span className='text-gray-700'>المؤلف : </span><Link to={`/author/${book.author_name}-${book.author}`}>{book.author_name}</Link></h3>
-              <h3 className="max-w-md text-cyan-700"><span className='text-gray-700'>القسم : </span>{book.category_name}</h3>
+              <h3 className="max-w-md text-cyan-700"><span className='text-gray-700'>القسم : </span><Link to={`/category/${book.category}`}>{book.category_name}</Link></h3>
               <h3 className="max-w-md text-cyan-700"><span className='text-gray-700'>تاريخ النشر : </span>{book.added_date}</h3>
               <div className="flex flex-row items-center -mx-6">
                 <div className="flex flex-col items-center space-y-2 border-l-2 border-gray-700 px-6 h-8 mt-6">

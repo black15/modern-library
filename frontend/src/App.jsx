@@ -14,6 +14,7 @@ import BookDetails from './pages/BookDetails';
 import AuthorDetails from './pages/AuthorDetails';
 import PrivateRoute from './utils/PrivateRoute';
 import Category from './pages/Category';
+import Footer from './components/Footer';
 
 function App() {
 
@@ -41,6 +42,7 @@ function App() {
             </PrivateRoute>
             } />
         </Routes>
+        <Footer />
       </AuthContextProvider>
     </div>
   );

@@ -16,6 +16,7 @@ const CommentCard = ({comment, filterMan}) => {
     axios.delete(`http://127.0.0.1:8000/api/v1/comment/opt/${comment.id}`)
       .then(res => {
         filterMan(comment)
+        console.log(comment);
       })
       .catch(err => {
         console.log(err);

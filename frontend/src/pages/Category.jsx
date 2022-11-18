@@ -20,11 +20,30 @@ const Category = () => {
   }, [categoryId])
 
   return (
-    <div className='container flex flex-col flex-wrap space-y-4 items-center justify-center mx-auto mt-12 p-4 px-6 md:flex-row'>
-      {books.map(book => (
-        <BookCard book={book} key={book.id}/>
-      ))}
-    </div>
+    <>
+      {
+        books.length !== 0
+          ?
+          <div className='container space-y-4 mx-auto mt-12 p-4 px-6 md:flex-row'>
+            <div className="rounded shadow bg-slate-50 p-4 px-6 mb-6">
+              <h1 className="max-w-lg text-gray-700 text-xl font-medium font-noto">
+              كل الكتب المتوفرة في هذا القسم
+              </h1>
+            </div>
+            <div className="flex flex-row flex-wrap items-center justify-center md:justify-start">
+              {books.map(book => (
+                <BookCard book={book} key={book.id}/>
+              ))}
+            </div>
+          </div>
+          : 
+          <div className="container mx-auto mt-12 p-4 px-6">
+            <h1 className="max-w-lg text-xl text-gray-700 font medium font-noto">
+            لا تتوفر أي كتب في هذا القسم
+            </h1>
+          </div>
+      }
+    </>
   )
 }
 
