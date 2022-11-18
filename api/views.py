@@ -73,6 +73,14 @@ def book_by_author(request, pk):
    return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
 
 @api_view(('GET',))
+def category_books(request, pk):
+   if request.method == 'GET':
+      books       = Book.objects.filter(category=pk)
+      serializer  = BookSerializer(books, many=True)
+      return Response(serializer.data, status=status.HTTP_200_OK)
+   return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
+
+@api_view(('GET',))
 def search_book_author(request, query):
    if request.method == 'GET':
       books       = Book.objects.filter(author__name__contains=query) | Book.objects.filter(name__contains=query)

@@ -18,7 +18,6 @@ function AuthorDetails() {
       })
     axios.get(`http://127.0.0.1:8000/api/v1/authors/${authorId}`)
       .then(res => {
-        console.log(res.data);
         setAuthor(res.data)
       })
       .catch(err => {

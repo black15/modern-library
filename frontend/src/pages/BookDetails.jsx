@@ -4,6 +4,7 @@ import {Link, useParams} from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 import CommentForm from '../components/ui/comments/CommentForm';
 import CommentCard from '../components/ui/comments/CommentCard';
+import Bar from '../components/ui/Bar';
 
 function BookDetails() {
   
@@ -41,6 +42,7 @@ function BookDetails() {
     <div>
       {/* Book Page Container */}
       <div className='container flex flex-col font-noto mx-auto mt-12 mb-12 p-4 px-6 space-y-12'>
+        <Bar book={book}/>
         {/* Book Details */}
         <div className="flex flex-col mt-6 p-6 px-12 bg-slate-50 rounded drop-shadow-md shadow-xl md:flex-row md:space-x-6">
           <div className='rounded-md drop-shadow-2xl ml-24' id="cover">

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-export default function Modal({title, text, option, option_link}) {
+const Modal = ({title, text, option, option_link}) => {
     const [showModal, setShowModal] = useState(false);
     return (
       <>
@@ -55,3 +55,5 @@ export default function Modal({title, text, option, option_link}) {
       </>
   );
 }
+
+export default Modal;

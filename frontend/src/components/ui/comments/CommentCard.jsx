@@ -4,6 +4,7 @@ import {RiDeleteBin7Line} from 'react-icons/ri'
 import {MdReportGmailerrorred} from 'react-icons/md'
 import AuthContext from '../../../context/AuthContext'
 import axios from 'axios'
+
 let moment = require('moment')
 
 const CommentCard = ({comment, filterMan}) => {
@@ -30,7 +31,7 @@ const CommentCard = ({comment, filterMan}) => {
           <div className='flex flex-col space-y-2'>
             <h1 className="max-w-md text-lg text-gray-800 font-medium font-sans capitalize">
               {
-                comment.username === auth.user.username 
+                auth.user && comment.username === auth.user.username 
                   ? 'أنت'
                   : comment.username
               } 
@@ -49,8 +50,10 @@ const CommentCard = ({comment, filterMan}) => {
               <div><span className="flex items-center max-w-md text-gray-700 font-medium cursor-pointer	hover:text-red-700" onClick={() => deleteComment()}>{<RiDeleteBin7Line />} حذف</span></div>
             </div>
           : 
-            <div><span className="flex items-center max-w-md text-gray-700 font-medium cursor-pointer hover:text-gray-900">{<MdReportGmailerrorred />} ابلاغ</span></div>
-        }
+            <div>
+              <span className="flex items-center max-w-md text-gray-700 font-medium cursor-pointer hover:text-gray-900">{<MdReportGmailerrorred />} ابلاغ</span>
+            </div>
+        }        
       </div>
     </>
   )

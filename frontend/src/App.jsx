@@ -13,6 +13,7 @@ import Register from './pages/Register';
 import BookDetails from './pages/BookDetails';
 import AuthorDetails from './pages/AuthorDetails';
 import PrivateRoute from './utils/PrivateRoute';
+import Category from './pages/Category';
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
           <Route path="/login"        element={<Login />} />
           <Route path="/register"     element={<Register />} />
           <Route path="/categories"   element={<Categories />} />
+          <Route path="/category/:categoryId"   element={<Category />} />
           <Route path="/authors"      element={<Categories />} />
           <Route path='/book/:bookId' element={<BookDetails />} />
           <Route path='/author/:authorName-:authorId' element={<AuthorDetails />} />
