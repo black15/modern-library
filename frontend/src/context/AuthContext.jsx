@@ -34,17 +34,10 @@ export const AuthContextProvider = ({children}) => {
       })
   }
 
-  const register = (username, password, password2) => {
-    axios.post('http://127.0.0.1:8000/api/v1/register', 
-    {
-      username,
-      password,
-      password2
-    })
+  const register = (data) => {
+    axios.post('http://127.0.0.1:8000/api/v1/register/', data)
       .then(res => {
-        if (res.status === 200) {
-          redirect('/login')
-        }
+        redirect('/login')
       })
       .catch(err => {
         console.log('ERror Func Register', err);

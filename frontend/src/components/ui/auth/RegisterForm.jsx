@@ -1,19 +1,43 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 
-function RegisterForm({login}) {
+function RegisterForm({register}) {
+
+  const errors = []
 
   const hundleForm = async (e) => {
     e.preventDefault()
-    console.log(e);
+
+    let username  = e.target.username.value
+    let password  = e.target.password.value
+    let password2 = e.target.password2.value
+
     const data = {
-      username: e.target.username.value,
-      password: e.target.password.value
+      username,
+      password,
+      password2
     }
-    await login(data)
+
+    if (password !== password2) {
+      errors.push('تأكد من كلمة المرور')
+    }
+    if (password.length < 8) {
+      errors.push('كلمة السر يجب أن تكون 8 أحرف أو أكثر')
+      // e.target.username.value  = ''
+      // e.target.password.value  = ''
+      // e.target.password2.value = ''
+    }
+    if (errors.length === 0) {
+      console.log('here');
+      await register(data)
+    }
+    
   }
+
   return (
     <section className="mt-12">
+      <div className="ùax-w-lg text-md font-noto text-center text-red-500 font-medium my-2">
+      </div>
         <div className="px-6 h-full text-gray-800">
           <div
             className="flex xl:justify-center lg:justify-between justify-center items-center flex-wrap h-full g-6"
@@ -85,6 +109,7 @@ function RegisterForm({login}) {
                     className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                     id="exampleFormControlInput"
                     placeholder="اسم المستخدم"
+                    required
                   />
                 </div>
 
@@ -95,6 +120,7 @@ function RegisterForm({login}) {
                     className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                     id="exampleFormControlInput2"
                     placeholder="كلمة السر"
+                    required
                   />
                 </div>
 
@@ -105,6 +131,7 @@ function RegisterForm({login}) {
                     className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                     id="exampleFormControlInput2"
                     placeholder="تأكيد كلمة السر"
+                    required
                   />
                 </div>
 

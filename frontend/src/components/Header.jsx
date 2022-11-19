@@ -1,13 +1,25 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import { Link } from "react-router-dom";
-import img from '../assets/img/logo.png';
+import AuthContext from '../context/AuthContext';
 
 function Header() {
+
+  const auth = useContext(AuthContext)
+
   return (
     <header>
-      <nav className="container relative flex flex-col items-center justify-between mx-auto mt-2 p-2 px-6 space-y-6 md:flex-row md:space-y-0 shadow-md rounded">
-        <div id="logo">
-          <img src={img} alt="Logo" width={80} />
+      <nav className="container relative flex flex-col items-center justify-between mx-auto mt-2 p-4 px-6 space-y-6 md:flex-row md:space-y-0 shadow-md rounded font-noto">
+        <div>
+          {
+            auth.user
+              ?
+              <Link to={'/logout'} className='max-w-md font-noto p-2 px-2 text-gray-700 text-lg ease-linear duration-100 hover:text-red-600'>الخروج</Link>
+              :
+              <div className='flex flex-row items-center justify-center space-x-2'>
+                <Link to={'/register'} className='max-w-md font-noto p-2 px-2 text-gray-700 font-medium'>حساب جديد</Link>
+                <Link to={'/login'} className='max-w-md font-noto p-2 px-2 text-gray-700 font-medium text-green-700'>تسجيل الدخول</Link>
+              </div>
+          }
         </div>
         <div id="links">
           <ul className="flex flex-col space-x-6 items-center justify-between list-none md:flex-row">

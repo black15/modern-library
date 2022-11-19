@@ -15,6 +15,7 @@ import AuthorDetails from './pages/AuthorDetails';
 import PrivateRoute from './utils/PrivateRoute';
 import Category from './pages/Category';
 import Footer from './components/Footer';
+import Logout from './components/ui/auth/Logout';
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
           <Route path="/"             element={<Home />} />
           <Route path="/login"        element={<Login />} />
           <Route path="/register"     element={<Register />} />
+          <Route path="/logout"       element={<Logout />} />
           <Route path="/categories"   element={<Categories />} />
           <Route path="/category/:categoryId"   element={<Category />} />
           <Route path="/authors"      element={<Categories />} />

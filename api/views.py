@@ -28,6 +28,17 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
+# ------------------ Account Registration Views ------------------
+@api_view(('POST',))
+def register(request):
+   if request.method == 'POST':
+      serialized = UserSerializer(data=request.data)
+      print(request.data)
+      if serialized.is_valid():
+         serialized.save()
+         return Response(serialized.data, status=status.HTTP_201_CREATED)
+      else:
+         return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)
 
 # ------------------ Authors Views ------------------
 @api_view(('GET','POST'))
@@ -88,6 +99,7 @@ def search_book_author(request, query):
       serializer  = BookSerializer(books, many=True)
       return Response(serializer.data, status=status.HTTP_200_OK)
    return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
+
 # ------------------ Books Views ------------------
 @api_view(('GET','POST'))
 def books_list(request):

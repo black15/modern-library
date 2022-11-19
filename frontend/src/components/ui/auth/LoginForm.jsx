@@ -5,7 +5,6 @@ function LoginForm({login, errors}) {
 
   const hundleForm = async (e) => {
     e.preventDefault()
-    console.log(e);
     const data = {
       username: e.target.username.value,
       password: e.target.password.value

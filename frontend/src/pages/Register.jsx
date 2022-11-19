@@ -9,7 +9,7 @@ function Register() {
 
   return (
     <div className='font-noto'>
-      <RegisterForm register={auth.login}/>
+      <RegisterForm register={auth.register} errors={auth.errors} />
     </div>
   )
 }
