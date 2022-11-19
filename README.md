@@ -11,7 +11,7 @@ This is a Fullstack Library Application built with ***DRF(Django Rest Framework)
 git clone https://github.com/black15/library-api
 cd library-api
 ```
-### Backend part (API)
+2. ### Backend part (API)
 ```bash
 python -m venv venv
 source venv/bin/activate
@@ -19,7 +19,7 @@ pip install -r requirements.txt
 python manage.py createsuperuser
 python manage.py runserver
 ```
-### Frontend part
+3. ### Frontend part
 ```bash
 cd frontend
 npm start
