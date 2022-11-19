@@ -1,1 +1,1 @@
-# Library Rest Api with Django
+# Full Stack Library Application using Django Rest Framework, ReactJS and TailwindCSS
