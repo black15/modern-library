@@ -1,1 +1,4 @@
-# Full Stack Library Application using Django Rest Framework, ReactJS and TailwindCSS
+# Full Stack Library Application 
+- Django Rest Framework
+- ReactJS
+- TailwindCSS
