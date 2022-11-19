@@ -6,7 +6,7 @@ This is a Fullstack Library Application built with ***DRF(Django Rest Framework)
 - Reactjs
 - TailwindCss
 ## Installation
-### Clone the repo
+1- ### Clone the repo
 ```bash
 git clone https://github.com/black15/library-api
 cd library-api
