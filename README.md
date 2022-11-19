@@ -20,8 +20,11 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 ### Frontend part
-> Move to 'frontend' folder in the repository.
+```bash
+cd frontend
+npm start
+```
 
 ## Contact Me
-https://facebook.com/unknownkid.18
+> https://facebook.com/unknownkid.18
 
