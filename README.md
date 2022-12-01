@@ -9,7 +9,7 @@ This is a Fullstack Library Application built with ***DRF(Django Rest Framework)
 ## Installation
 1. ### Clone the repo
 ```bash
-git clone https://github.com/black15/library-api
+git clone https://github.com/black15/modern-library
 cd library-api
 ```
 2. ### Backend part (API)
