@@ -24,6 +24,7 @@ python manage.py runserver
 3. ### Frontend part
 ```bash
 cd frontend
+npm install
 npm start
 ```
 
