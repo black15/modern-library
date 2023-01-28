@@ -1,5 +1,5 @@
 # Full Stack Library Application 
-## Discreption
+## Description
 This is a Fullstack Library Application built with ***DRF(Django Rest Framework)*** which handles the API (Backend part) and ***Reactjs*** with ***TailwindCSS*** (Frontend part)
 > Notice : Display Language in this App is **ARABIC** It does not support any other languages Yet ! 
 ## Requirements
